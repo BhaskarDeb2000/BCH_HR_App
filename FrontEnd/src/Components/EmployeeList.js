@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import EmployeeCard from "./EmployeeCard.js";
-import { Box } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import axios from "axios";
 
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchEmployees = async () => {
@@ -13,6 +14,8 @@ const EmployeeList = () => {
         setEmployees(response.data.employees);
       } catch (error) {
         console.error("Error fetching employees:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -60,23 +63,48 @@ const EmployeeList = () => {
     );
   };
 
+  const Loader = () => (
+    <Box sx={{ textAlign: "center", marginTop: 4 }}>
+      <CircularProgress />
+      <Typography variant="body1" sx={{ marginTop: 2 }}>
+        Loading employees...
+      </Typography>
+    </Box>
+  );
+
+  const NoEmployees = () => (
+    <Box sx={{ textAlign: "center", marginTop: 4 }}>
+      <Typography variant="h6">No employees found!</Typography>
+    </Box>
+  );
+
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexWrap: "wrap",
-        justifyContent: "center",
-        gap: 2,
-      }}
-    >
-      {employees.map((employee) => (
-        <EmployeeCard
-          key={employee.id}
-          employee={employee}
-          onPromote={() => promoteEmployee(employee.id)}
-          onDemote={() => demoteEmployee(employee.id)}
-        />
-      ))}
+    <Box sx={{ padding: 4 }}>
+      {loading ? (
+        <Loader />
+      ) : employees.length === 0 ? (
+        <NoEmployees />
+      ) : (
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: 3,
+            justifyItems: "center",
+            alignItems: "center",
+            marginTop: 3,
+          }}
+        >
+          {employees.map((employee) => (
+            <EmployeeCard
+              key={employee.id}
+              employee={employee}
+              onPromote={() => promoteEmployee(employee.id)}
+              onDemote={() => demoteEmployee(employee.id)}
+            />
+          ))}
+        </Box>
+      )}
     </Box>
   );
 };
