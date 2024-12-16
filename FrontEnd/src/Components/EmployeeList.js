@@ -18,7 +18,6 @@ const EmployeeList = () => {
         setLoading(false);
       }
     };
-
     fetchEmployees();
   }, []);
 
@@ -63,6 +62,12 @@ const EmployeeList = () => {
     );
   };
 
+  const updateEmployee = (id, updates) => {
+    setEmployees((prev) =>
+      prev.map((emp) => (emp.id === id ? { ...emp, ...updates } : emp))
+    );
+  };
+
   const Loader = () => (
     <Box sx={{ textAlign: "center", marginTop: 4 }}>
       <CircularProgress />
@@ -101,6 +106,7 @@ const EmployeeList = () => {
               employee={employee}
               onPromote={() => promoteEmployee(employee.id)}
               onDemote={() => demoteEmployee(employee.id)}
+              onUpdate={updateEmployee}
             />
           ))}
         </Box>
