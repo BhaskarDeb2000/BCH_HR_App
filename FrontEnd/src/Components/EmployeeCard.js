@@ -14,7 +14,6 @@ const EmployeeCard = ({ employee, onPromote, onDemote, onUpdate }) => {
   const { id, name, role, startDate, department } = employee;
   const avatarUrl = `https://api.multiavatar.com/${name}.svg`;
 
-  // States for edit mode and updated fields
   const [isEditing, setIsEditing] = useState(false);
   const [updatedRole, setUpdatedRole] = useState(role);
   const [updatedDepartment, setUpdatedDepartment] = useState(department || "");
@@ -22,7 +21,6 @@ const EmployeeCard = ({ employee, onPromote, onDemote, onUpdate }) => {
     employee.location || ""
   );
 
-  // Handle save or cancel
   const handleSave = () => {
     onUpdate(id, {
       role: updatedRole,
@@ -39,7 +37,6 @@ const EmployeeCard = ({ employee, onPromote, onDemote, onUpdate }) => {
     setIsEditing(false);
   };
 
-  // Dynamic styles based on department
   const departmentColor = {
     HR: "#f0e68c",
     Engineering: "#add8e6",
