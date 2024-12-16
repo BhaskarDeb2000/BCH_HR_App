@@ -1,0 +1,29 @@
+const employees = [
+  {
+    name: "John Doe",
+    role: "Software Engineer",
+    startDate: "2023-01-15",
+  },
+  {
+    name: "Jane Smith",
+    role: "Product Manager",
+    startDate: "2022-08-01",
+  },
+  {
+    name: "Sam Wilson",
+    role: "UX Designer",
+    startDate: "2021-12-10",
+  },
+  {
+    name: "Emma Brown",
+    role: "HR Specialist",
+    startDate: "2020-05-20",
+  },
+  {
+    name: "Mike Johnson",
+    role: "DevOps Engineer",
+    startDate: "2023-03-12",
+  },
+];
+
+console.log(employees);
